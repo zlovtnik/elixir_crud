@@ -1,65 +1,88 @@
-# Elixir GraphQL ERP Server
+# Elixir GraphQL ERP System
 
-This is an Elixir-based GraphQL server for an ERP system with PostgreSQL database support.
+A modern ERP system built with Elixir, Phoenix, and SvelteKit, featuring a GraphQL API and PostgreSQL database.
+
+## Project Structure
+
+```
+elixir_crud/
+├── backend/           # Elixir/Phoenix GraphQL API
+│   ├── config/       # Phoenix configuration
+│   ├── lib/          # Elixir source code
+│   ├── priv/         # Static assets
+│   └── test/         # Tests
+└── frontend/         # SvelteKit frontend
+    ├── src/          # Source code
+    │   ├── lib/      # Shared components and utilities
+    │   └── routes/   # SvelteKit routes
+    └── static/       # Static assets
+```
 
 ## Features
 
-- GraphQL API for ERP operations
-- PostgreSQL database integration
-- Organization management
+### Backend
+- Elixir/Phoenix GraphQL API
+- PostgreSQL database
+- Organization and Organization Unit management
 - Docker containerization
-- Phoenix framework
+- Authentication and authorization
+
+### Frontend
+- SvelteKit with TypeScript
+- GraphQL client with URQL
+- Tailwind CSS for styling
+- Modern, responsive UI
+- Real-time updates
 
 ## Prerequisites
 
 - Docker and Docker Compose
 - Elixir 1.14+ (for local development)
+- Node.js 18+ or Bun
 - PostgreSQL (managed via Docker)
 
 ## Getting Started
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd elixir_crud
-```
+### Backend Setup
 
-2. Start the services using Docker Compose:
+1. Start the services using Docker Compose:
 ```bash
+cd backend
 docker-compose up -d
 ```
 
-3. The services will be available at:
-- GraphQL API: http://localhost:4000/graphiql
-- PostgreSQL: localhost:5432
-
-## Development
-
-To run the project locally:
-
-1. Install dependencies:
+2. Install dependencies and setup the database:
 ```bash
 mix deps.get
-```
-
-2. Create and migrate your database:
-```bash
 mix ecto.create
 mix ecto.migrate
 ```
 
-3. Start Phoenix server:
+3. Start the Phoenix server:
 ```bash
 mix phx.server
 ```
 
-## API Documentation
+The GraphQL API will be available at http://localhost:4000/graphiql
 
-The GraphQL API documentation is available at `/graphiql` when running the server.
+### Frontend Setup
 
-### GraphQL Operations
+1. Install dependencies:
+```bash
+cd frontend
+bun install
+```
 
-#### Queries
+2. Start the development server:
+```bash
+bun run dev
+```
+
+The frontend will be available at http://localhost:5173
+
+## GraphQL API Documentation
+
+### Queries
 
 1. List Organizations
 ```graphql
@@ -88,7 +111,7 @@ query {
 }
 ```
 
-#### Mutations
+### Mutations
 
 1. Create Organization
 ```graphql
@@ -126,32 +149,29 @@ mutation {
 }
 ```
 
-You can test these operations using:
-- GraphiQL interface at http://localhost:4000/graphiql
-- cURL commands:
-```bash
-# List organizations
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"query": "query { organizations { id name code description } }"}' \
-  http://localhost:4000/api/graphql
+## Development
 
-# Create organization
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"query": "mutation { createOrganization(name: \"Test Corp\", code: \"TC001\", description: \"Test Corporation\") { id name code description } }"}' \
-  http://localhost:4000/api/graphql
-```
+### Backend Development
 
-## Database Schema
+- Run tests: `mix test`
+- Generate documentation: `mix docs`
+- Check code style: `mix format`
 
-The system includes two main organization entities:
-- Organization
-- OrganizationUnit
+### Frontend Development
+
+- Run type checking: `bun run check`
+- Build for production: `bun run build`
+- Preview production build: `bun run preview`
 
 ## Environment Variables
 
+### Backend
 - `DATABASE_URL`: PostgreSQL connection string
 - `PORT`: Server port (default: 4000)
 - `SECRET_KEY_BASE`: Phoenix secret key base
+
+### Frontend
+- `VITE_GRAPHQL_URL`: GraphQL API URL (default: http://localhost:4000/api/graphql)
 
 ## License
 
