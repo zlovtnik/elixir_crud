@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/erp_dev
+      - PORT=4000
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - erp-deps:/app/deps
+      - erp-build:/app/_build
+    networks:
+      - erp-network
+
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=erp_dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - erp-network
+
+volumes:
+  postgres-data:
+  erp-deps:
+  erp-build:
+
+networks:
+  erp-network:
+    driver: bridge 
