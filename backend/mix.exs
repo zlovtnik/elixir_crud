@@ -41,6 +41,7 @@ defmodule Erp.MixProject do
       {:absinthe_phoenix, "~> 2.0"},
       {:dataloader, "~> 1.0.0"},
       {:ecto_sql, "~> 3.0"},
+      {:credo, "~> 1.7"},
       {:postgrex, ">= 0.0.0"}
     ]
   end
