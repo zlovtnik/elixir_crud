@@ -1,7 +1,7 @@
 ###############################################
 # Stage 1: Build the Elixir application
 ###############################################
-FROM elixir:1.16-otp-26-slim AS builder
+FROM elixir:latest AS builder
 
 # Install build dependencies
 RUN apt-get update -y && \
