@@ -40,9 +40,9 @@ RUN mix release
 ###############################################
 FROM debian:bookworm-slim
 
-# Install runtime dependencies
+# Install runtime dependencies including postgres client for health checks
 RUN apt-get update -y && \
-    apt-get install -y libstdc++6 openssl libncurses5 locales ca-certificates && \
+    apt-get install -y libstdc++6 openssl libncurses5 locales ca-certificates postgresql-client && \
     apt-get clean && \
     rm -f /var/lib/apt/lists/*_*
 
@@ -58,12 +58,15 @@ WORKDIR /home/app
 # Copy the release from the builder stage
 COPY --from=builder --chown=app:app /app/_build/prod/rel/erp ./
 
+# Copy the entrypoint script
+COPY --chown=app:app entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
 # Set user
 USER app
 
 # Set the entrypoint
-ENTRYPOINT ["./bin/erp"]
-CMD ["start"]
+ENTRYPOINT ["./entrypoint.sh"]
 
 # Expose the port
 EXPOSE 4000
