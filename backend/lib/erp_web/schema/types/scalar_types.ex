@@ -1,4 +1,7 @@
 defmodule ErpWeb.Schema.ScalarTypes do
+  @moduledoc """
+  Custom scalar types for Absinthe GraphQL schema.
+  """
   use Absinthe.Schema.Notation
 
   scalar :naive_datetime, description: "ISOz naive datetime" do

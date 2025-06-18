@@ -1,4 +1,7 @@
 defmodule ErpWeb.Schema.CustomerTypes do
+  @moduledoc """
+  Absinthe types for customers.
+  """
   use Absinthe.Schema.Notation
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 

@@ -1,4 +1,7 @@
 defmodule Erp.Customers do
+  @moduledoc """
+  Context module for managing customers.
+  """
   import Ecto.Query, warn: false
   alias Erp.Repo
   alias Erp.Customers.Customer

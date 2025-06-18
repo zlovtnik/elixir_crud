@@ -1,4 +1,7 @@
 defmodule ErpWeb.Schema.OrganizationTypes do
+  @moduledoc """
+  Absinthe types for organizations and organization units.
+  """
   use Absinthe.Schema.Notation
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 

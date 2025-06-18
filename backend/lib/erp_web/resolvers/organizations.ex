@@ -1,4 +1,7 @@
 defmodule ErpWeb.Resolvers.Organizations do
+  @moduledoc """
+  Provides resolver functions for organization and organization unit GraphQL queries and mutations.
+  """
   alias Erp.Organizations
 
   def find_organization(_parent, %{id: id}, _resolution) do

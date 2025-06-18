@@ -1,4 +1,7 @@
 defmodule Erp.Customers.Customer do
+  @moduledoc """
+  Schema for customers.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,4 +1,7 @@
 defmodule Erp.Organizations.OrganizationUnit do
+  @moduledoc """
+  Schema and functions for organization units.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,4 +1,7 @@
 defmodule ErpWeb.Schema do
+  @moduledoc """
+  Root Absinthe schema for the ERP GraphQL API, including query and mutation types for organizations, units, and customers.
+  """
   use Absinthe.Schema
   import_types(ErpWeb.Schema.ScalarTypes)
   import_types(ErpWeb.Schema.OrganizationTypes)

@@ -1,4 +1,7 @@
 defmodule Erp.Organizations do
+  @moduledoc """
+  Context module for managing organizations and organization units.
+  """
   import Ecto.Query, warn: false
   alias Erp.Repo
   alias Erp.Organizations.Organization

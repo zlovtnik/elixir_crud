@@ -1,4 +1,7 @@
 defmodule ErpWeb.Resolvers.Customers do
+  @moduledoc """
+  Provides resolver functions for customer GraphQL queries and mutations.
+  """
   alias Erp.Customers
 
   def find_customer(_parent, %{id: id}, _resolution) do
