@@ -29,6 +29,9 @@ RUN mix deps.get --only prod && \
     mix deps.compile && \
     mix compile
 
+# Compile assets
+RUN mix phx.digest
+
 # Build the release
 RUN mix release
 

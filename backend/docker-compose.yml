@@ -12,8 +12,10 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/erp_dev
       - PORT=4000
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - IN_DOCKER=true
     depends_on:
-      - db
+      db:
+        condition: service_started
     volumes:
       - .:/app
       - erp-deps:/app/deps
