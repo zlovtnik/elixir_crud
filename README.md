@@ -1,178 +1,60 @@
-# Elixir GraphQL ERP System
+# Elixir CRUD Backend
 
-A modern ERP system built with Elixir, Phoenix, and SvelteKit, featuring a GraphQL API and PostgreSQL database.
+This is the backend service for the Elixir CRUD application.
 
-## Project Structure
+## Docker Setup
 
-```
-elixir_crud/
-├── backend/           # Elixir/Phoenix GraphQL API
-│   ├── config/       # Phoenix configuration
-│   ├── lib/          # Elixir source code
-│   ├── priv/         # Static assets
-│   └── test/         # Tests
-└── frontend/         # SvelteKit frontend
-    ├── src/          # Source code
-    │   ├── lib/      # Shared components and utilities
-    │   └── routes/   # SvelteKit routes
-    └── static/       # Static assets
-```
+This project uses Docker for development and deployment. The setup includes:
 
-## Features
+- A multi-stage Dockerfile for minimal image size and production readiness
+- Docker Compose configuration for easy local development
+- PostgreSQL database service
 
-### Backend
-- Elixir/Phoenix GraphQL API
-- PostgreSQL database
-- Organization and Organization Unit management
-- Docker containerization
-- Authentication and authorization
+### Requirements
 
-### Frontend
-- SvelteKit with TypeScript
-- GraphQL client with URQL
-- Tailwind CSS for styling
-- Modern, responsive UI
-- Real-time updates
+- Docker
+- Docker Compose
 
-## Prerequisites
+### Quick Start
 
-- Docker and Docker Compose
-- Elixir 1.14+ (for local development)
-- Node.js 18+ or Bun
-- PostgreSQL (managed via Docker)
+1. Build and start the services:
 
-## Getting Started
-
-### Backend Setup
-
-1. Start the services using Docker Compose:
 ```bash
-cd backend
-docker-compose up -d
+docker compose up -d
 ```
 
-2. Install dependencies and setup the database:
+2. Access the application at http://localhost:4000
+
+### Development Workflow
+
+The Docker setup includes volume mounts for code, dependencies, and build artifacts to enable fast development cycles:
+
+- `.:/app` - Mounts the project code into the container
+- `erp-deps:/app/deps` - Persists dependencies between container restarts
+- `erp-build:/app/_build` - Persists build artifacts between container restarts
+
+### Database
+
+The PostgreSQL database is accessible:
+
+- From the host at `localhost:5432`
+- From other containers at `db:5432`
+- Default credentials: `postgres:postgres`
+
+### Environment Variables
+
+The following environment variables can be configured:
+
+- `DATABASE_URL` - PostgreSQL connection string
+- `PORT` - The port the application listens on
+- `SECRET_KEY_BASE` - Secret key for Phoenix
+
+### Building for Production
+
+To build the production Docker image:
+
 ```bash
-mix deps.get
-mix ecto.create
-mix ecto.migrate
+docker build -t elixir-crud-backend .
 ```
 
-3. Start the Phoenix server:
-```bash
-mix phx.server
-```
-
-The GraphQL API will be available at http://localhost:4000/graphiql
-
-### Frontend Setup
-
-1. Install dependencies:
-```bash
-cd frontend
-bun install
-```
-
-2. Start the development server:
-```bash
-bun run dev
-```
-
-The frontend will be available at http://localhost:5173
-
-## GraphQL API Documentation
-
-### Queries
-
-1. List Organizations
-```graphql
-query {
-  organizations {
-    id
-    name
-    code
-    description
-  }
-}
-```
-
-2. List Organization Units
-```graphql
-query {
-  organizationUnits {
-    id
-    name
-    code
-    description
-    organization {
-      name
-    }
-  }
-}
-```
-
-### Mutations
-
-1. Create Organization
-```graphql
-mutation {
-  createOrganization(
-    name: "Test Corp"
-    code: "TC001"
-    description: "Test Corporation"
-  ) {
-    id
-    name
-    code
-    description
-  }
-}
-```
-
-2. Create Organization Unit
-```graphql
-mutation {
-  createOrganizationUnit(
-    name: "Sales Department"
-    code: "SALES"
-    description: "Sales Department"
-    organizationId: "1"
-  ) {
-    id
-    name
-    code
-    description
-    organization {
-      name
-    }
-  }
-}
-```
-
-## Development
-
-### Backend Development
-
-- Run tests: `mix test`
-- Generate documentation: `mix docs`
-- Check code style: `mix format`
-
-### Frontend Development
-
-- Run type checking: `bun run check`
-- Build for production: `bun run build`
-- Preview production build: `bun run preview`
-
-## Environment Variables
-
-### Backend
-- `DATABASE_URL`: PostgreSQL connection string
-- `PORT`: Server port (default: 4000)
-- `SECRET_KEY_BASE`: Phoenix secret key base
-
-### Frontend
-- `VITE_GRAPHQL_URL`: GraphQL API URL (default: http://localhost:4000/api/graphql)
-
-## License
-
-MIT 
+This creates an optimized, minimal Docker image ready for deployment.
