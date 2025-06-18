@@ -1,7 +1,7 @@
 ###############################################
 # Stage 1: Build the Elixir application
 ###############################################
-FROM hexpm/elixir:1.18.0-erlang-27.0.0-debian-bookworm-20240130 AS builder
+FROM elixir:1.16-otp-26-slim AS builder
 
 # Install build dependencies
 RUN apt-get update -y && \
