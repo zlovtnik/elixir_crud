@@ -49,7 +49,7 @@ jobs:
         done
     - name: Setup DB
       working-directory: ./backend
-      run: mix ecto.setup
+      run: MIX_ENV=test mix ecto.setup
     - name: Run tests
       working-directory: ./backend
       run: mix test
